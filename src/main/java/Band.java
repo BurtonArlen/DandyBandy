@@ -7,7 +7,7 @@ public class Band {
   private String band_name;
 
 
-  public Band(String band_band_name) {
+  public Band(String band_name) {
     this.band_name = band_name;
   }
 
