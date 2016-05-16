@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class Band {
   private int id;
-  private String name;
+  private String band_name;
 
 
-  public Band(String name) {
-    this.name = name;
+  public Band(String band_band_name) {
+    this.band_name = band_name;
   }
 
   public String getName() {
-    return name;
+    return band_name;
   }
 
   public int getId() {
@@ -21,7 +21,7 @@ public class Band {
 
 
   public static List<Band> all() {
-    String sql = "SELECT id, description FROM bands";
+    String sql = "SELECT id, band_name FROM bands";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Band.class);
     }
@@ -40,9 +40,9 @@ public class Band {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO bands(name) VALUES (:name)";
+      String sql = "INSERT INTO bands(band_name) VALUES (:band_name)";
       this.id = (int) con.createQuery(sql, true)
-        .addParameter("name", this.name)
+        .addParameter("band_name", this.band_name)
         .executeUpdate()
         .getKey();
     }
@@ -60,9 +60,9 @@ public class Band {
 
   public void update(String newName) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE bands SET name = :name WHERE id = :id";
+      String sql = "UPDATE bands SET band_name = :band_name WHERE id = :id";
       con.createQuery(sql)
-        .addParameter("name", newName)
+        .addParameter("band_name", newName)
         .addParameter("id", this.id)
         .executeUpdate();
     }

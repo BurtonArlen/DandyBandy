@@ -4,14 +4,14 @@ import org.sql2o.*;
 
 public class Venue {
   private int id;
-  private String name;
+  private String venue_name;
 
-  public Venue(String name) {
-    this.name = name;
+  public Venue(String venue_name) {
+    this.venue_name = venue_name;
   }
 
   public String getName() {
-    return name;
+    return venue_name;
   }
 
   public int getId() {
@@ -19,7 +19,7 @@ public class Venue {
   }
 
   public static List<Venue> all() {
-    String sql = "SELECT id, name FROM Venues";
+    String sql = "SELECT id, venue_name FROM Venues";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Venue.class);
     }
@@ -38,9 +38,9 @@ public class Venue {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO Venues(name) VALUES (:name)";
+      String sql = "INSERT INTO Venues(venue_name) VALUES (:venue_name)";
       this.id = (int) con.createQuery(sql, true)
-        .addParameter("name", this.name)
+        .addParameter("venue_name", this.venue_name)
         .executeUpdate()
         .getKey();
     }
@@ -83,9 +83,9 @@ public class Venue {
 
   public void update(String newName) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE venues SET name = :name WHERE id = :id";
+      String sql = "UPDATE venues SET venue_name = :venue_name WHERE id = :id";
       con.createQuery(sql)
-        .addParameter("name", newName)
+        .addParameter("venue_name", newName)
         .addParameter("id", this.id)
         .executeUpdate();
     }
