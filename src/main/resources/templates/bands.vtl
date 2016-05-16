@@ -1,0 +1,9 @@
+<h1>All bands</h1>
+
+<ul>
+  #foreach ($band in $bands)
+    <li><a href="/bands/$band.getId()">$band.getName()</a></li>
+  #end
+</ul>
+
+<a href="/band-form">Add new Band</a>
