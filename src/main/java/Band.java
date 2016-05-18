@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Band {
   private int id;
   private String band_name;
-
+  private String hasName = "";
 
   public Band(String band_name) {
     this.band_name = band_name;
@@ -51,10 +51,10 @@ public class Band {
   public static Band find(int id) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM bands where id=:id";
-      Band task = con.createQuery(sql)
+      Band band = con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Band.class);
-      return task;
+      return band;
     }
   }
 

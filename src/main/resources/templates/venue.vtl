@@ -13,7 +13,7 @@
 
 
 
-<form action='/venues-addband' method='post'>
+<form action='/venues/addband' method='post'>
   <input id="venue_id" name="venue_id" type="hidden" value="$venue.getId()">
   <label for="band_id">Select a band</label>
   <select id='band_id' name='band_id' type='text'>
@@ -23,3 +23,7 @@
   </select>
   <button type="submit" class="btn btn-info">Add band to this venue</button>
 </form>
+
+<a href="/venues">Venues</a>
+<a href="/bands">Bands</a>
+<a href="/">Home</a>

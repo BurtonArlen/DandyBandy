@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
+import java.util.List;
 import static spark.Spark.*;
 
 public class App {
@@ -23,18 +24,19 @@ public class App {
 
     get("/bands", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
+      
       model.put("bands", Band.all());
       model.put("template", "templates/bands.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("/venue-form", (request, response) -> {
+    get("/new-venue/form", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       model.put("template", "templates/Venue-form.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("/band-form", (request, response) -> {
+    get("/new-band/form", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       model.put("template", "templates/Band-form.vtl");
       return new ModelAndView(model, layout);
@@ -49,14 +51,14 @@ public class App {
       return null;
     });
 
-    post("/venues-addband", (request, response) -> {
+    post("/venues/addband", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
-      String name = request.queryParams("venue_name");
-      Venue newVenue = new Venue(name);
+      int venue_id = Integer.parseInt(request.queryParams("venue_id"));
       int band_id = Integer.parseInt(request.queryParams("band_id"));
+      Venue venue = Venue.find(venue_id);
       Band band = Band.find(band_id);
-      newVenue.addBand(band);
-      response.redirect("/venues");
+      venue.addBand(band);
+      response.redirect("/venues/" + venue_id);
       return null;
     });
 
@@ -69,14 +71,14 @@ public class App {
       return null;
     });
 
-    post("/bands-addvenue", (request, response) -> {
+    post("/bands/addvenue", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
-      String name = request.queryParams("band_name");
-      Band newBand = new Band(name);
       int venue_id = Integer.parseInt(request.queryParams("venue_id"));
+      int band_id = Integer.parseInt(request.queryParams("band_id"));
       Venue venue = Venue.find(venue_id);
-      newBand.addVenue(venue);
-      response.redirect("/bands");
+      Band band = Band.find(band_id);
+      band.addVenue(venue);
+      response.redirect("/bands/" + band_id);
       return null;
     });
 
@@ -84,8 +86,6 @@ public class App {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Band band = Band.find(Integer.parseInt(request.params("id")));
       model.put("band", band);
-      model.put("bands", Band.all());
-      model.put("venues_bands", band.getVenues());
       model.put("venues", Venue.all());
       model.put("template", "templates/band.vtl");
       return new ModelAndView(model, layout);
@@ -95,14 +95,43 @@ public class App {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Venue venue = Venue.find(Integer.parseInt(request.params("id")));
       model.put("venue", venue);
-      model.put("venues", Venue.all());
-      model.put("venues_bands", venue.getBands());
       model.put("bands", Band.all());
       model.put("template", "templates/venue.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/band/:id/edit", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Band band = Band.find(Integer.parseInt(request.params(":id")));
+      model.put("band", band);
+      model.put("template", "templates/band-edit.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
+    post("/band-update", (request, response) -> {
+      int bandId = Integer.parseInt(request.queryParams("band_id"));
+      String name = request.queryParams("update-name");
+      Band updateBand = Band.find(bandId);
+      updateBand.update(name);
+      response.redirect("/bands/" + bandId);
+      return null;
+    });
+
+    get("/band/:id/delete", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Band band = Band.find(Integer.parseInt(request.params("id")));
+      model.put("band", band);
+      model.put("template", "templates/band-delete.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/band/delete", (request, response) -> {
+      int bandId = Integer.parseInt(request.queryParams("band_id"));
+      Band deleteBand = Band.find(bandId);
+      deleteBand.delete();
+      response.redirect("/bands");
+      return null;
+    });
 
   }
 }

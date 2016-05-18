@@ -12,7 +12,7 @@ The code and records for this open source project can be found at
 
 ## Support and contact details
 
-Questions? Concerns? Ideas? Email: TBD
+To setup band_tracker.sql, run "$psql band_tracker < band_tracker.sql" in the terminal
 
 ## Technologies Used
 

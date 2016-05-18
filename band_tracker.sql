@@ -159,6 +159,9 @@ ALTER TABLE ONLY venues_bands ALTER COLUMN id SET DEFAULT nextval('venues_bands_
 --
 
 COPY bands (id, band_name) FROM stdin;
+8	1970's weedwhacker Metal
+9	
+7	Mongolian Lute CrustStep
 \.
 
 
@@ -166,7 +169,7 @@ COPY bands (id, band_name) FROM stdin;
 -- Name: bands_id_seq; Type: SEQUENCE SET; Schema: public; Owner: arlen
 --
 
-SELECT pg_catalog.setval('bands_id_seq', 1, false);
+SELECT pg_catalog.setval('bands_id_seq', 9, true);
 
 
 --
@@ -174,6 +177,9 @@ SELECT pg_catalog.setval('bands_id_seq', 1, false);
 --
 
 COPY venues (id, venue_name) FROM stdin;
+6	WesternDump
+7	trash compactor
+8	7-11
 \.
 
 
@@ -182,6 +188,11 @@ COPY venues (id, venue_name) FROM stdin;
 --
 
 COPY venues_bands (id, venue_id, band_id) FROM stdin;
+33	6	7
+34	6	8
+35	7	8
+36	8	7
+37	8	8
 \.
 
 
@@ -189,14 +200,14 @@ COPY venues_bands (id, venue_id, band_id) FROM stdin;
 -- Name: venues_bands_id_seq; Type: SEQUENCE SET; Schema: public; Owner: arlen
 --
 
-SELECT pg_catalog.setval('venues_bands_id_seq', 1, false);
+SELECT pg_catalog.setval('venues_bands_id_seq', 37, true);
 
 
 --
 -- Name: venues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: arlen
 --
 
-SELECT pg_catalog.setval('venues_id_seq', 1, false);
+SELECT pg_catalog.setval('venues_id_seq', 8, true);
 
 
 --
