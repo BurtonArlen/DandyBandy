@@ -5,6 +5,8 @@ import org.sql2o.*;
 public class Venue {
   private int id;
   private String venue_name;
+  private String hasNoName = "";
+
 
   public Venue(String venue_name) {
     this.venue_name = venue_name;
@@ -80,6 +82,20 @@ public class Venue {
           .executeUpdate();
     }
   }
+
+  // public void deleteLogic() {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String deleteQuery = "DELETE * FROM venues WHERE venue_name = hasNoName;";
+  //       con.createQuery(deleteQuery)
+  //         .addParameter("venue_name", this.getName())
+  //         .executeUpdate();
+  //
+  //     String joinDeleteQuery = "DELETE * FROM venues_bands WHERE venue_id = :venue_id";
+  //       con.createQuery(joinDeleteQuery)
+  //         .addParameter("venue_id", this.getId())
+  //         .executeUpdate();
+  //   }
+  // }
 
   public void update(String newName) {
     try(Connection con = DB.sql2o.open()) {

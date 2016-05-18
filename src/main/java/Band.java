@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Band {
   private int id;
   private String band_name;
-  private String hasName = "";
+  private String hasNoName = "";
 
   public Band(String band_name) {
     this.band_name = band_name;
@@ -81,6 +81,21 @@ public class Band {
           .executeUpdate();
     }
   }
+
+  // public void deleteLogic() {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String deleteQuery = "DELETE * FROM bands WHERE band_name = hasNoName;";
+  //       con.createQuery(deleteQuery)
+  //         .addParameter("band_name", this.getName())
+  //         .executeUpdate();
+  //
+  //     String joinDeleteQuery = "DELETE * FROM venues_bands WHERE band_id = :band_id";
+  //       con.createQuery(joinDeleteQuery)
+  //         .addParameter("band_id", this.getId())
+  //         .executeUpdate();
+  //   }
+  // }
+
 
   public void addVenue(Venue venue) {
     try(Connection con = DB.sql2o.open()) {

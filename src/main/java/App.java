@@ -24,7 +24,6 @@ public class App {
 
     get("/bands", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
-      
       model.put("bands", Band.all());
       model.put("template", "templates/bands.vtl");
       return new ModelAndView(model, layout);
@@ -47,6 +46,7 @@ public class App {
       String name = request.queryParams("venue_name");
       Venue newVenue = new Venue(name);
       newVenue.save();
+      newVenue.deleteLogic();
       response.redirect("/venues");
       return null;
     });
@@ -67,6 +67,7 @@ public class App {
       String name = request.queryParams("band_name");
       Band newBand = new Band(name);
       newBand.save();
+      newBand.deleteLogic();
       response.redirect("/bands");
       return null;
     });
