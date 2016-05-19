@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Band {
   private int id;
   private String band_name;
-  private String hasNoName = "";
 
   public Band(String band_name) {
     this.band_name = band_name;

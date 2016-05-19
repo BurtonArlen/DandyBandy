@@ -5,7 +5,6 @@ import org.sql2o.*;
 public class Venue {
   private int id;
   private String venue_name;
-  private String hasNoName = "";
 
 
   public Venue(String venue_name) {
