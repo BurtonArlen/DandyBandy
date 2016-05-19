@@ -4,6 +4,6 @@
 
 <form action="/bands" method="post">
   <label for="band_name">Band name</label>
-  <input id="band_name" name="band_name" type="text">
+  <input id="band_name" name="band_name" type="text" required pattern="[a-zA-Z0-9].*$">
   <button type="submit" class="btn btn-success">Add Band</button>
 </form>

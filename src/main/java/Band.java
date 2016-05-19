@@ -82,21 +82,6 @@ public class Band {
     }
   }
 
-  // public void deleteLogic() {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String deleteQuery = "DELETE * FROM bands WHERE band_name = hasNoName;";
-  //       con.createQuery(deleteQuery)
-  //         .addParameter("band_name", this.getName())
-  //         .executeUpdate();
-  //
-  //     String joinDeleteQuery = "DELETE * FROM venues_bands WHERE band_id = :band_id";
-  //       con.createQuery(joinDeleteQuery)
-  //         .addParameter("band_id", this.getId())
-  //         .executeUpdate();
-  //   }
-  // }
-
-
   public void addVenue(Venue venue) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO venues_bands (venue_id, band_id) VALUES (:venue_id, :band_id)";
